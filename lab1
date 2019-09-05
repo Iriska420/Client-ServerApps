@@ -26,6 +26,10 @@ public class Server {
                 String msg = scanner.nextLine();
                 serverToPrint.println("Server\'s response: " + msg);
             }
+            
+            clientSocket.close();
+            input.close();
+            output.close();
         }
     }
 }
