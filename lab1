@@ -1,0 +1,31 @@
+package chemurov.lab1;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class Server {
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(1234);
+        
+        while(true){
+            Socket clientSocket = serverSocket.accept();
+
+            InputStream input = clientSocket.getInputStream();
+            OutputStream output = clientSocket.getOutputStream();
+
+            Scanner scanner = new Scanner(input, "UTF-8");
+            PrintWriter serverToPrint = new PrintWriter(new OutputStreamWriter(output, "UTF-8"), true);
+
+            while(scanner.hasNextLine()) {
+                String msg = scanner.nextLine();
+                serverToPrint.println("Server\'s response: " + msg);
+            }
+        }
+    }
+}
